@@ -1,0 +1,1 @@
+package com.zeptopluse.dto; import java.time.LocalDateTime; public record CustomerResponse(Long id,String name,String phone,String email,LocalDateTime createdAt) {}

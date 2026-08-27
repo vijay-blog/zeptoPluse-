@@ -1,0 +1,1 @@
+package com.zeptopluse.mapper; import com.zeptopluse.dto.CustomerResponse; import com.zeptopluse.entity.Customer; import org.springframework.stereotype.Component; @Component public class CustomerMapper { public CustomerResponse toResponse(Customer c){return new CustomerResponse(c.getId(),c.getName(),c.getPhone(),c.getEmail(),c.getCreatedAt());} }

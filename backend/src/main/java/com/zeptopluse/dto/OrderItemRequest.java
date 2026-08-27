@@ -1,0 +1,1 @@
+package com.zeptopluse.dto; import jakarta.validation.constraints.*; public record OrderItemRequest(@NotNull Long productId,@Min(1) @Max(20) int quantity) {}

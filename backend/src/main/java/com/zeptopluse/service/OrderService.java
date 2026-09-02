@@ -139,11 +139,11 @@ public class OrderService {
             product.setStockQuantity(product.getStockQuantity() - requestedItem.quantity());
             subtotal = subtotal.add(lineTotal);
         }
-
-        private BigDecimal deliveryFee(BigDecimal subtotal) {
-            return subtotal.compareTo(FREE_DELIVERY_THRESHOLD) >= 0 ? ZERO : STANDARD_DELIVERY_FEE;
-        }
         return subtotal;
+    }
+
+    private BigDecimal deliveryFee(BigDecimal subtotal) {
+        return subtotal.compareTo(FREE_DELIVERY_THRESHOLD) >= 0 ? ZERO : STANDARD_DELIVERY_FEE;
     }
 
     private String addressSnapshot(CustomerAddress address) {

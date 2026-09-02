@@ -38,7 +38,7 @@ public class OrderService {
 
         CustomerOrder order = new CustomerOrder();
         order.setCustomer(customer);
-        order.setOrderNumber("ZP-" + UUID.randomUUID().toString().toUpperCase(Locale.ROOT));
+        order.setOrderNumber("NM-" + UUID.randomUUID().toString().toUpperCase(Locale.ROOT));
         order.setIdempotencyKey(request.idempotencyKey() == null || request.idempotencyKey().isBlank() ? null : request.idempotencyKey().trim());
         PaymentMethod method = request.paymentMethod() == null ? PaymentMethod.COD : request.paymentMethod();
         order.setStatus(method == PaymentMethod.ONLINE ? OrderStatus.PAYMENT_PENDING : OrderStatus.CREATED);

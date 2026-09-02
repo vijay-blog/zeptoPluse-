@@ -1,20 +1,20 @@
 server:
   port: ${SERVER_PORT:8080}
 
-Spring:
+spring:
   datasource:
-    url: ${MYSQL_URL:jdbc:mysql://${MYSQLHOST:localhost}:${MYSQLPORT:3306}/${MYSQL_DATABASE:${MYSQLDATABASE:zeptopluse}}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Kolkata&allowPublicKeyRetrieval=true}
-    username: ${MYSQL_USER:${MYSQL_USERNAME:${DB_USERNAME:root}}}
-    password: ${MYSQL_PASSWORD:${MYSQLPASSWORD:${DB_PASSWORD:}}}
-    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
-  jpa:
+    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${MYSQLUSER}
+    password: ${MYSQLPASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+jpa:
     hibernate:
       ddl-auto: validate
     open-in-view: false
     show-sql: false
-  flyway:
+flyway:
     enabled: true
-  jackson:
+jackson:
     serialization:
       write-dates-as-timestamps: false
 

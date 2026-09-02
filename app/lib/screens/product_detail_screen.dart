@@ -4,17 +4,57 @@ import 'package:provider/provider.dart';
 import '../models/product.dart';
 import '../providers/cart_provider.dart';
 import 'cart_screen.dart';
+import 'checkout_screen.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   final Product product;
 
   const ProductDetailScreen({super.key, required this.product});
 
   @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  bool _buyNowLoading = false;
+
+  Future<void> _buyNow() async {
+    if (_buyNowLoading || !widget.product.available) return;
+
+    setState(() => _buyNowLoading = true);
+    try {
+      final cart = context.read<CartProvider>();
+      final existing = cart.items
+          .where((item) => item.product.id == widget.product.id)
+          .firstOrNull;
+      if (existing == null) {
+        cart.add(widget.product);
+      }
+
+      if (!mounted) return;
+      await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const CheckoutScreen()),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Unable to start checkout right now. Please try again.',
+          ),
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _buyNowLoading = false);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartProvider>();
-    final item =
-        cart.items.where((x) => x.product.id == product.id).firstOrNull;
+    final product = widget.product;
+    final item = cart.items.where((x) => x.product.id == product.id).firstOrNull;
 
     return Scaffold(
       appBar: AppBar(
@@ -39,15 +79,21 @@ class ProductDetailScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () => cart.add(product),
+                  onPressed: product.available ? () => cart.add(product) : null,
                   child: const Text('ADD TO CART'),
                 ),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: FilledButton(
-                  onPressed: () => cart.add(product),
-                  child: const Text('BUY NOW'),
+                  onPressed: _buyNowLoading ? null : _buyNow,
+                  child: _buyNowLoading
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Text('BUY NOW'),
                 ),
               ),
             ],
@@ -85,8 +131,8 @@ class ProductDetailScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   product.name,
-                  style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.w900),
+                  style:
+                      const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 5),
                 Text(
@@ -130,10 +176,11 @@ class ProductDetailScreen extends StatelessWidget {
                 Text(
                   'Availability: ${product.available ? 'In Stock' : 'Out of Stock'}',
                   style: TextStyle(
-                      color: product.available
-                          ? const Color(0xff3454d1)
-                          : Colors.red,
-                      fontWeight: FontWeight.w700),
+                    color: product.available
+                        ? const Color(0xff3454d1)
+                        : Colors.red,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -163,8 +210,8 @@ class ProductDetailScreen extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   leading: Icon(Icons.list_alt_outlined),
                   title: Text('Specifications'),
-                  subtitle: Text(
-                      'Brand, unit, weight and category details available.'),
+                  subtitle:
+                      Text('Brand, unit, weight and category details available.'),
                 ),
                 if (item != null)
                   Container(

@@ -4,6 +4,7 @@ import '../core/app_theme.dart';
 import '../data/mock_data.dart';
 import '../providers/catalog_provider.dart';
 import '../providers/cart_provider.dart';
+import '../widgets/home_category_slider.dart';
 import '../widgets/product_card.dart';
 import 'all_categories_screen.dart';
 import 'category_screen.dart';
@@ -145,6 +146,16 @@ class _HomeTab extends StatelessWidget {
                         Text('Search groceries, clothes, electronics...',
                             style: TextStyle(color: Colors.grey))
                       ]))))),
+      SliverPadding(
+          padding: const EdgeInsets.fromLTRB(18, 2, 18, 0),
+          sliver: SliverToBoxAdapter(
+              child: HomeCategorySlider(
+                  categories: categories.take(24).toList(),
+                  onTapCategory: (category) => Navigator.push(
+                      c,
+                      MaterialPageRoute(
+                         builder: (_) =>
+                             CategoryScreen(category: category)))))),
       SliverPadding(
           padding: const EdgeInsets.fromLTRB(18, 12, 18, 0),
           sliver: SliverToBoxAdapter(

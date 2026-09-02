@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import '../core/api_client.dart';
 import '../providers/address_provider.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
@@ -71,8 +72,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(_userMessage(e))),
+        );
       }
     } finally {
       if (mounted) setState(() => loading = false);
@@ -96,7 +98,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Payment verification failed: $e')),
+          SnackBar(content: Text(_userMessage(e))),
         );
       }
     }
@@ -252,5 +254,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         color: selected ? const Color(0xff3454d1) : Colors.grey,
       ),
     );
+  }
+
+  String _userMessage(Object error) {
+    if (error is ApiException) return error.message;
+    return 'Unable to place your order right now. Please check your internet connection and try again.';
   }
 }

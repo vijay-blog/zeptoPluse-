@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:http/http.dart' as http;
+
 import 'app_config.dart';
 
 enum HttpMethod { get, post, put, delete }
@@ -8,6 +11,7 @@ enum HttpMethod { get, post, put, delete }
 class ApiException implements Exception {
   final String message;
   final int statusCode;
+
   ApiException(this.message, this.statusCode);
 
   @override
@@ -30,6 +34,9 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
+    final configIssue = AppConfig.runtimeConfigurationIssue;
+    if (configIssue != null) throw ApiException(configIssue, 0);
+
     final uri = Uri.parse(
       '${AppConfig.apiBaseUrl}${AppConfig.resolveEndpoint(endpoint)}',
     ).replace(
@@ -46,92 +53,103 @@ class ApiClient {
       headers['Authorization'] = 'Bearer $_accessToken';
     }
 
-    http.Response response;
     try {
-      switch (method) {
-        case HttpMethod.get:
-          response = await _client
-              .get(uri, headers: headers)
-              .timeout(AppConfig.timeout);
-          break;
-        case HttpMethod.post:
-          response = await _client
-              .post(uri,
-                  headers: headers,
-                  body: body != null ? jsonEncode(body) : null)
-              .timeout(AppConfig.timeout);
-          break;
-        case HttpMethod.put:
-          response = await _client
-              .put(uri,
-                  headers: headers,
-                  body: body != null ? jsonEncode(body) : null)
-              .timeout(AppConfig.timeout);
-          break;
-        case HttpMethod.delete:
-          response = await _client
-              .delete(uri, headers: headers)
-              .timeout(AppConfig.timeout);
-          break;
-      }
+      final response = await _send(method, uri, headers, body);
+      return _handleResponse(response);
+    } on TimeoutException {
+      throw ApiException(
+        'Unable to connect to NexaMart. Please check your internet connection.',
+        0,
+      );
     } on SocketException {
-      throw ApiException('No internet connection or server unreachable.', 0);
+      throw ApiException(
+        'Unable to connect to NexaMart. Please check your internet connection.',
+        0,
+      );
+    } on http.ClientException {
+      throw ApiException(
+        'Unable to connect to NexaMart. Please check your internet connection.',
+        0,
+      );
     } on FormatException {
-      throw ApiException('Bad response format from server.', 0);
+      throw ApiException(
+        'We could not process the server response. Please try again.',
+        0,
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
-      throw ApiException('Network error occurred: ${e.toString()}', 0);
+      throw ApiException(
+        'Unable to connect to NexaMart. Please check your internet connection.',
+        0,
+      );
     }
+  }
 
-    return _handleResponse(response);
+  Future<http.Response> _send(
+    HttpMethod method,
+    Uri uri,
+    Map<String, String> headers,
+    Map<String, dynamic>? body,
+  ) {
+    switch (method) {
+      case HttpMethod.get:
+        return _client.get(uri, headers: headers).timeout(AppConfig.timeout);
+      case HttpMethod.post:
+        return _client
+            .post(
+              uri,
+              headers: headers,
+              body: body != null ? jsonEncode(body) : null,
+            )
+            .timeout(AppConfig.timeout);
+      case HttpMethod.put:
+        return _client
+            .put(
+              uri,
+              headers: headers,
+              body: body != null ? jsonEncode(body) : null,
+            )
+            .timeout(AppConfig.timeout);
+      case HttpMethod.delete:
+        return _client
+            .delete(uri, headers: headers)
+            .timeout(AppConfig.timeout);
+    }
   }
 
   dynamic _handleResponse(http.Response response) {
     final code = response.statusCode;
     if (code >= 200 && code < 300) {
       if (response.body.isEmpty) return null;
-      try {
-        return jsonDecode(response.body);
-      } catch (_) {
-        return response.body;
-      }
+      return jsonDecode(response.body);
     }
+    throw ApiException(_messageForStatusCode(code), code);
+  }
 
-    String message;
+  String _messageForStatusCode(int code) {
     switch (code) {
       case 400:
-        message = 'Bad request. Please check your input.';
-        break;
+        return 'Bad request. Please check your input.';
       case 401:
-        message = 'Unauthorized. Please login again.';
-        break;
+        return 'Your session has expired. Please sign in again.';
       case 403:
-        message = 'Access forbidden.';
-        break;
+        return "You don't have permission to perform this action.";
       case 404:
-        message = 'Requested resource not found.';
-        break;
+        return "We couldn't find the requested information.";
       case 409:
-        message = 'Conflict occurred. Please try again.';
-        break;
+        return 'This item or order was updated. Please try again.';
       case 422:
-        message = 'Validation error. Please check submitted data.';
-        break;
+        return 'Validation error. Please check submitted data.';
+      case 429:
+        return 'Too many requests. Please try again in a moment.';
+      case 500:
+      case 502:
+      case 503:
+        return 'NexaMart is temporarily unavailable. Please try again shortly.';
       default:
-        if (code >= 500) {
-          message = 'Server error. Please try again later.';
-        } else {
-          message = 'Unexpected error occurred (Code $code).';
-        }
+        return code >= 500
+            ? 'NexaMart is temporarily unavailable. Please try again shortly.'
+            : 'Unable to complete your request right now.';
     }
-
-    try {
-      final bodyMap = jsonDecode(response.body);
-      if (bodyMap is Map && bodyMap.containsKey('message')) {
-        message = bodyMap['message'].toString();
-      }
-    } catch (_) {}
-
-    throw ApiException(message, code);
   }
 }

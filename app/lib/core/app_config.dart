@@ -1,10 +1,25 @@
 class AppConfig {
   static const String _apiPrefix = '/api/v1';
-  static const String _defaultApiBaseUrl =
-      'http://nexamart.railway.internal$_apiPrefix';
+  static const String _defaultApiBaseUrl = 'http://10.0.2.2:8080$_apiPrefix';
+  static const bool _isReleaseBuild = bool.fromEnvironment('dart.vm.product');
   static final String apiBaseUrl = _normalizeBaseUrl(
     String.fromEnvironment('API_BASE_URL', defaultValue: _defaultApiBaseUrl),
   );
+
+  static String? get runtimeConfigurationIssue {
+    final value = apiBaseUrl.toLowerCase();
+    if (!_isReleaseBuild) return null;
+    if (value.isEmpty || !value.startsWith('https://')) {
+      return 'NexaMart is not configured for production yet.';
+    }
+    if (value.contains('railway.internal') ||
+        value.contains('10.0.2.2') ||
+        value.contains('127.0.0.1') ||
+        value.contains('localhost')) {
+      return 'NexaMart is not configured for production yet.';
+    }
+    return null;
+  }
 
   static String resolveEndpoint(String endpoint) {
     final normalized = endpoint.startsWith('/') ? endpoint : '/$endpoint';

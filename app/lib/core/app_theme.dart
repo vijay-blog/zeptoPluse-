@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const green = Color(0xFF0B7A53);
-  static const dark = Color(0xFF10231C);
-  static const bg = Color(0xFFF6F8F6);
+  static const green = Color(0xFF3454D1);
+  static const dark = Color(0xFF182451);
+  static const bg = Color(0xFFF6F7FC);
   static ThemeData get theme => ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: bg,

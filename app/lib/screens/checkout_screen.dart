@@ -56,10 +56,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           'amount': (paymentOrder.amount * 100).round(),
           'currency': paymentOrder.currency,
           'order_id': paymentOrder.gatewayOrderId,
-          'name': 'ZeptoPluse',
+          'name': 'NexaMart',
           'description': 'Order ${order.orderNumber}',
           'prefill': {'contact': selected.mobile, 'name': selected.name},
-          'theme': {'color': '#0B7A53'},
+          'theme': {'color': '#3454D1'},
         });
       } else {
         cart.clear();
@@ -249,7 +249,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       subtitle: Text(subtitle),
       trailing: Icon(
         selected ? Icons.check_circle : Icons.radio_button_unchecked,
-        color: selected ? const Color(0xff0b7a53) : Colors.grey,
+        color: selected ? const Color(0xff3454d1) : Colors.grey,
       ),
     );
   }

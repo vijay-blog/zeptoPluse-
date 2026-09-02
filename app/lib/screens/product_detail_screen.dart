@@ -58,7 +58,7 @@ class ProductDetailScreen extends StatelessWidget {
         children: [
           Container(
             height: 330,
-            color: const Color(0xffeef3f0),
+            color: const Color(0xfff2f5ff),
             child: Image.asset(product.imageAsset, fit: BoxFit.contain),
           ),
           Padding(
@@ -71,13 +71,13 @@ class ProductDetailScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xffe7f6ee),
+                      color: const Color(0xffe9edff),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
                       '${product.discount.round()}% OFF',
                       style: const TextStyle(
-                        color: Color(0xff0b7a53),
+                        color: Color(0xff3454d1),
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -131,7 +131,7 @@ class ProductDetailScreen extends StatelessWidget {
                   'Availability: ${product.available ? 'In Stock' : 'Out of Stock'}',
                   style: TextStyle(
                       color: product.available
-                          ? const Color(0xff0b7a53)
+                          ? const Color(0xff3454d1)
                           : Colors.red,
                       fontWeight: FontWeight.w700),
                 ),
@@ -170,14 +170,14 @@ class ProductDetailScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: const Color(0xffe7f6ee),
+                      color: const Color(0xffe9edff),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       '${item.quantity} in your cart',
                       style: const TextStyle(
                         fontWeight: FontWeight.w800,
-                        color: Color(0xff0b7a53),
+                        color: Color(0xff3454d1),
                       ),
                     ),
                   ),

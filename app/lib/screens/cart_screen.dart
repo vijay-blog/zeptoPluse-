@@ -27,13 +27,13 @@ class CartScreen extends StatelessWidget {
                 width: 90,
                 height: 90,
                 decoration: BoxDecoration(
-                  color: const Color(0xffe7f6ee),
+                  color: const Color(0xffe9edff),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: const Icon(
                   Icons.shopping_bag_outlined,
                   size: 44,
-                  color: Color(0xff0b7a53),
+                  color: Color(0xff3454d1),
                 ),
               ),
               const SizedBox(height: 15),
@@ -79,7 +79,7 @@ class CartScreen extends StatelessWidget {
                           width: 76,
                           height: 76,
                           decoration: BoxDecoration(
-                            color: const Color(0xfff1f4f2),
+                            color: const Color(0xfff3f5ff),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Image.asset(

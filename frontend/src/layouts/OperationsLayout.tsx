@@ -21,8 +21,8 @@ export function OperationsLayout({ activeScreen, onNavigate, children }: Operati
     <div className="app-shell">
       <aside className="sidebar">
         <a className="brand" href="#dashboard" onClick={() => onNavigate('dashboard')}>
-          <span className="brand-mark">Z</span>
-          <span>ZeproPluse<small>OPERATIONS</small></span>
+          <span className="brand-mark">N</span>
+          <span>NexaMart<small>OPERATIONS</small></span>
         </a>
         <nav aria-label="Main navigation">
           {navigation.map((item) => (

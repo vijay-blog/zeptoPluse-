@@ -11,17 +11,17 @@ import 'screens/splash_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
-  if (!prefs.containsKey('zp.guestCustomerId')) {
+  if (!prefs.containsKey('nm.guestCustomerId')) {
     await prefs.setString(
-      'zp.guestCustomerId',
+      'nm.guestCustomerId',
       'guest_${DateTime.now().millisecondsSinceEpoch}',
     );
   }
-  runApp(const ZeptoPluseApp());
+  runApp(const NexaMartApp());
 }
 
-class ZeptoPluseApp extends StatelessWidget {
-  const ZeptoPluseApp({super.key});
+class NexaMartApp extends StatelessWidget {
+  const NexaMartApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -33,7 +33,7 @@ class ZeptoPluseApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'ZeptoPluse',
+        title: 'NexaMart',
         theme: AppTheme.theme,
         home: const SplashScreen(),
       ),

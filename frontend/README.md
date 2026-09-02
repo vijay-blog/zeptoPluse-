@@ -1,6 +1,6 @@
-# ZeproPluse Operations Frontend
+# NexaMart Operations Frontend
 
-A Vite + React + TypeScript foundation for the ZeproPluse operations console. It is intentionally independent of the customer app and backend.
+A Vite + React + TypeScript foundation for the NexaMart operations console. It is intentionally independent of the customer app and backend.
 
 ## Run locally
 

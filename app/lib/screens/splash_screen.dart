@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff0b7a53),
+      backgroundColor: const Color(0xff3454d1),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,12 +43,12 @@ class _SplashScreenState extends State<SplashScreen> {
               child: const Icon(
                 Icons.shopping_bag_rounded,
                 size: 52,
-                color: Color(0xff0b7a53),
+                color: Color(0xff3454d1),
               ),
             ),
             const SizedBox(height: 22),
             const Text(
-              'ZeptoPluse',
+              'NexaMart',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 34,
@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Everything you need. Near you.',
+              'Everything You Need, Near You.',
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 14,

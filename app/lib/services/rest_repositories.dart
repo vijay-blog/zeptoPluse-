@@ -12,7 +12,7 @@ class RestProductRepository implements ProductRepository {
 
   @override
   Future<List<CategoryItem>> getCategories() async {
-    final data = await apiClient.request(HttpMethod.get, '/api/v1/categories');
+    final data = await apiClient.request(HttpMethod.get, '/categories');
     if (data is List) {
       return data
           .map((e) => CategoryItem(
@@ -43,7 +43,7 @@ class RestProductRepository implements ProductRepository {
 
     final data = await apiClient.request(
       HttpMethod.get,
-      '/api/v1/products',
+      '/products',
       queryParameters: params,
     );
 
@@ -62,7 +62,7 @@ class RestProductRepository implements ProductRepository {
   @override
   Future<Product?> getProductById(String id) async {
     final data =
-        await apiClient.request(HttpMethod.get, '/api/v1/products/$id');
+        await apiClient.request(HttpMethod.get, '/products/$id');
     if (data is Map<String, dynamic>) {
       return Product.fromJson(data);
     }
@@ -78,7 +78,7 @@ class RestProductRepository implements ProductRepository {
   Future<List<Product>> searchProducts(String query) async {
     final data = await apiClient.request(
       HttpMethod.get,
-      '/api/v1/products/search',
+      '/products/search',
       queryParameters: {'query': query},
     );
     if (data is List) {
@@ -118,7 +118,7 @@ class RestOrderRepository implements OrderRepository {
     };
 
     final data =
-        await apiClient.request(HttpMethod.post, '/api/v1/orders', body: body);
+        await apiClient.request(HttpMethod.post, '/orders', body: body);
     if (data is Map<String, dynamic>) {
       return _parseOrder(data, items, address.fullAddress);
     }
@@ -127,7 +127,7 @@ class RestOrderRepository implements OrderRepository {
 
   @override
   Future<List<CustomerOrder>> getOrders() async {
-    final data = await apiClient.request(HttpMethod.get, '/api/v1/orders');
+    final data = await apiClient.request(HttpMethod.get, '/orders');
     if (data is List) {
       return data
           .map((e) => _parseOrder(e as Map<String, dynamic>, const [], ''))
@@ -139,7 +139,7 @@ class RestOrderRepository implements OrderRepository {
   @override
   Future<CustomerOrder?> getOrderById(String orderId) async {
     final data =
-        await apiClient.request(HttpMethod.get, '/api/v1/orders/$orderId');
+        await apiClient.request(HttpMethod.get, '/orders/$orderId');
     if (data is Map<String, dynamic>) {
       return _parseOrder(data, const [], '');
     }
@@ -170,7 +170,7 @@ class RestAddressRepository implements AddressRepository {
 
   @override
   Future<List<Address>> getAddresses() async {
-    final data = await apiClient.request(HttpMethod.get, '/api/v1/addresses');
+    final data = await apiClient.request(HttpMethod.get, '/addresses');
     if (data is List) {
       return data
           .map((e) => Address.fromJson(e as Map<String, dynamic>))
@@ -187,13 +187,13 @@ class RestAddressRepository implements AddressRepository {
         address.id!.startsWith('addr_new')) {
       data = await apiClient.request(
         HttpMethod.post,
-        '/api/v1/addresses',
+        '/addresses',
         body: address.toJson(),
       );
     } else {
       data = await apiClient.request(
         HttpMethod.put,
-        '/api/v1/addresses/${address.id}',
+        '/addresses/${address.id}',
         body: address.toJson(),
       );
     }
@@ -205,6 +205,6 @@ class RestAddressRepository implements AddressRepository {
 
   @override
   Future<void> deleteAddress(String id) async {
-    await apiClient.request(HttpMethod.delete, '/api/v1/addresses/$id');
+    await apiClient.request(HttpMethod.delete, '/addresses/$id');
   }
 }

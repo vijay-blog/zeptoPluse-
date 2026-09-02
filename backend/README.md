@@ -1,11 +1,11 @@
-# ZeptoPluse Backend
+# NexaMart Backend
 
-Java 17 / Spring Boot 3 modular-monolith API under `com.zeptopluse` for the Flutter ZeptoPluse marketplace app.
+Java 17 / Spring Boot 3 modular-monolith API for the Flutter NexaMart marketplace app.
 
 ## Run
 
 1. Make MySQL 8+ available.
-2. Configure `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` (local `zeptopluse` defaults are supplied).
+2. Configure `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` (local defaults are supplied).
 3. With JDK 17+, run `mvn spring-boot:run`.
 
 Flyway owns the schema. Hibernate is set to `validate`, so it cannot silently change a production schema.
@@ -13,6 +13,10 @@ Flyway owns the schema. Hibernate is set to `validate`, so it cannot silently ch
 ## API
 
 All endpoints are under `/api/v1`:
+
+- Local development base URL: `http://localhost:8080/api/v1`
+- Railway internal base URL: `http://nexamart.railway.internal/api/v1`
+- Public production base URL: `https://<your-public-domain>/api/v1` (required for real user devices outside Railway private networking)
 
 - `GET /categories`
 - `GET /products`, `GET /products/{id}`, `GET /products/category/{categoryId}`, `GET /products/search?query=`

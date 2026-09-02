@@ -13,8 +13,8 @@ class ProfileScreen extends StatelessWidget {
         const Card(
             child: ListTile(
                 leading: CircleAvatar(
-                    backgroundColor: Color(0xffe7f6ee),
-                    child: Icon(Icons.person, color: Color(0xff0b7a53))),
+                    backgroundColor: Color(0xffe9edff),
+                    child: Icon(Icons.person, color: Color(0xff3454d1))),
                 title: Text('Guest Customer',
                     style: TextStyle(fontWeight: FontWeight.w900)),
                 subtitle: Text('Login with OTP will be added later'))),
@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
               leading: Icon(Icons.help_outline), title: Text('Help & Support')),
           const ListTile(
               leading: Icon(Icons.info_outline),
-              title: Text('About ZeptoPluse')),
+              title: Text('About NexaMart')),
           const ListTile(
               leading: Icon(Icons.gavel_outlined), title: Text('Terms')),
           const ListTile(

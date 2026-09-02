@@ -28,7 +28,7 @@ class ProductCard extends StatelessWidget {
                           child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  color: const Color(0xfff1f4f2),
+                                  color: const Color(0xfff3f5ff),
                                   borderRadius: BorderRadius.circular(14)),
                               clipBehavior: Clip.antiAlias,
                               child: Image.asset(product.imageAsset,
@@ -45,13 +45,13 @@ class ProductCard extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 7, vertical: 3),
                                 decoration: BoxDecoration(
-                                    color: const Color(0xffe7f6ee),
+                                    color: const Color(0xffe9edff),
                                     borderRadius: BorderRadius.circular(6)),
                                 child: Text('${product.discount.round()}% OFF',
                                     style: const TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w800,
-                                        color: Color(0xff0b7a53))))),
+                                        color: Color(0xff3454d1))))),
                       const SizedBox(height: 4),
                       Text(product.name,
                           maxLines: 2,

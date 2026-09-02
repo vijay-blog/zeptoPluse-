@@ -75,7 +75,7 @@ class OrderDetailScreen extends StatelessWidget {
                         active
                             ? Icons.check_circle
                             : Icons.radio_button_unchecked,
-                        color: active ? const Color(0xff0b7a53) : Colors.grey,
+                        color: active ? const Color(0xff3454d1) : Colors.grey,
                       ),
                       title: Text(
                         s.label,

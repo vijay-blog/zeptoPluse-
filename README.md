@@ -1,6 +1,6 @@
-# ZeptoPluse
+# NexaMart
 
-ZeptoPluse is a Hyderabad-first hyperlocal, multi-category marketplace. The
+NexaMart is a Hyderabad-first hyperlocal, multi-category marketplace. The
 modular monolith supports a Flutter customer experience now and leaves clear
 boundaries for future partner, delivery, and operations applications.
 
@@ -22,13 +22,13 @@ $env:MYSQL_ROOT_PASSWORD = "local-root-password"
 docker compose up -d mysql
 ```
 
-The database is `zeptopluse`. Backend migration and seed data run at startup.
+Backend migration and seed data run at startup.
 
 ## Start the backend
 
 ```powershell
 cd backend
-$env:DB_USERNAME = "zeptopluse"
+$env:DB_USERNAME = "nexamart"
 $env:DB_PASSWORD = "local-password"
 $env:RAZORPAY_KEY_ID = "rzp_test_xxxxx"
 $env:RAZORPAY_KEY_SECRET = "your-test-secret"
@@ -51,6 +51,15 @@ device, supply your development computer's LAN address instead:
 ```powershell
 flutter run --dart-define=API_BASE_URL=http://192.168.1.25:8080/api/v1
 ```
+
+### Flutter API URL targets
+
+- Local emulator development: `http://10.0.2.2:8080/api/v1`
+- Railway private network: `http://nexamart.railway.internal/api/v1`
+- Public production (real user devices): `https://<your-public-domain>/api/v1`
+
+`nexamart.railway.internal` is an internal hostname and is only valid from
+runtime environments that can resolve Railway private networking.
 
 ## Start the operations frontend
 

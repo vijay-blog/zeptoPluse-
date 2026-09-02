@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:zeptopluse_customer/models/cart_item.dart';
-import 'package:zeptopluse_customer/models/order.dart';
-import 'package:zeptopluse_customer/models/payment.dart';
-import 'package:zeptopluse_customer/models/product.dart';
+import 'package:nexamart_customer/models/cart_item.dart';
+import 'package:nexamart_customer/models/order.dart';
+import 'package:nexamart_customer/models/payment.dart';
+import 'package:nexamart_customer/models/product.dart';
 
 void main() {
   test('Product parses backend JSON and preserves server image asset', () {

@@ -1,4 +1,4 @@
-# ZeptoPluse Customer App
+# NexaMart Customer App
 
 Material 3 customer app for Hyderabad's multi-category marketplace.
 
@@ -30,6 +30,17 @@ lib/
 Images are local clean illustrations in `assets/images/products/`; no network
 image dependency or emoji product imagery is used.
 
+## API base URL configuration
+
+The Flutter app has a single source of truth for backend host configuration in
+`lib/core/app_config.dart` via `API_BASE_URL`.
+
+- Default (Railway private network): `http://nexamart.railway.internal/api/v1`
+- Local emulator development: `http://10.0.2.2:8080/api/v1`
+- Public production for real user devices: use your public HTTPS backend domain,
+  for example `https://api.nexamart.com/api/v1` (Railway internal hostnames are
+  not reachable from Play Store-installed apps on public networks).
+
 ## Run
 
 ```powershell
@@ -38,7 +49,7 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080/api/v1
 ```
 
 For a physical Android device, replace `10.0.2.2` with the host machine's LAN
-IP. The API URL is centralized in `lib/core/app_config.dart`.
+IP, or with your public HTTPS API domain for external testing/production.
 
 ## Validate
 

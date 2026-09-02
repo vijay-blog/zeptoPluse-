@@ -38,7 +38,7 @@ class SavedAddressesScreen extends StatelessWidget {
                       selected
                           ? Icons.check_circle
                           : Icons.radio_button_unchecked,
-                      color: selected ? const Color(0xff0b7a53) : Colors.grey,
+                      color: selected ? const Color(0xff3454d1) : Colors.grey,
                     ),
                     title: Row(
                       children: [
@@ -52,12 +52,12 @@ class SavedAddressesScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8, vertical: 3),
                               decoration: BoxDecoration(
-                                  color: const Color(0xffe7f6ee),
+                                  color: const Color(0xffe9edff),
                                   borderRadius: BorderRadius.circular(8)),
                               child: const Text('Default',
                                   style: TextStyle(
                                       fontSize: 11,
-                                      color: Color(0xff0b7a53),
+                                      color: Color(0xff3454d1),
                                       fontWeight: FontWeight.w700))),
                       ],
                     ),

@@ -6,7 +6,8 @@ class ApiService {
   final http.Client client;
   ApiService({http.Client? client}) : client = client ?? http.Client();
   Uri u(String path, [Map<String, String>? q]) =>
-      Uri.parse('${AppConfig.apiBaseUrl}$path').replace(queryParameters: q);
+      Uri.parse('${AppConfig.apiBaseUrl}${AppConfig.resolveEndpoint(path)}')
+          .replace(queryParameters: q);
   Future<dynamic> get(String path, [Map<String, String>? q]) async {
     final r = await client.get(u(path, q),
         headers: {'Accept': 'application/json'}).timeout(AppConfig.timeout);

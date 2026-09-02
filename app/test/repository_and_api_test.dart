@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:zeptopluse_customer/core/api_client.dart';
-import 'package:zeptopluse_customer/services/rest_repositories.dart';
+import 'package:nexamart_customer/core/api_client.dart';
+import 'package:nexamart_customer/services/rest_repositories.dart';
 
 void main() {
   group('ApiClient', () {

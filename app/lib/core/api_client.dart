@@ -30,7 +30,9 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
-    final uri = Uri.parse('${AppConfig.apiBaseUrl}$endpoint').replace(
+    final uri = Uri.parse(
+      '${AppConfig.apiBaseUrl}${AppConfig.resolveEndpoint(endpoint)}',
+    ).replace(
       queryParameters:
           queryParameters?.map((key, value) => MapEntry(key, value.toString())),
     );

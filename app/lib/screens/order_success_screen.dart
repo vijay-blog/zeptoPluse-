@@ -19,7 +19,7 @@ class OrderSuccessScreen extends StatelessWidget {
               const Spacer(),
               const Center(
                 child: Icon(Icons.check_circle,
-                    color: Color(0xff0b7a53), size: 88),
+                    color: Color(0xff3454d1), size: 88),
               ),
               const SizedBox(height: 18),
               const Center(

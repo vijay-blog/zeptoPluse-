@@ -1,4 +1,4 @@
-package com.zeptopluse.customer
+package com.nexamart.customer
 
 import io.flutter.embedding.android.FlutterActivity
 

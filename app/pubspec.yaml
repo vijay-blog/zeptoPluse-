@@ -1,6 +1,6 @@
-name: zeptopluse_customer
+name: nexamart_customer
 
-description: ZeptoPluse Hyderabad hyperlocal marketplace customer app.
+description: NexaMart customer marketplace app.
 publish_to: "none"
 version: 1.0.0+1
 

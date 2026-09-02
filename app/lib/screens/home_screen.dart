@@ -92,7 +92,7 @@ class _HomeTab extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                    color: const Color(0xffe7f6ee),
+                    color: const Color(0xffe9edff),
                     borderRadius: BorderRadius.circular(12)),
                 child: const Icon(Icons.shopping_bag_rounded,
                     color: AppTheme.green)),
@@ -101,7 +101,7 @@ class _HomeTab extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  Text('ZeptoPluse',
+                  Text('NexaMart',
                       style: TextStyle(
                           color: AppTheme.green,
                           fontWeight: FontWeight.w900,
@@ -152,7 +152,7 @@ class _HomeTab extends StatelessWidget {
                   height: 154,
                   padding: const EdgeInsets.all(22),
                   decoration: BoxDecoration(
-                      color: const Color(0xffdff3e9),
+                      color: const Color(0xffe7ebff),
                       borderRadius: BorderRadius.circular(24)),
                   child: Row(children: [
                     const Expanded(
@@ -160,10 +160,7 @@ class _HomeTab extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                          Text('Everything you need,',
-                              style: TextStyle(
-                                  fontSize: 21, fontWeight: FontWeight.w900)),
-                          Text('nearby.',
+                          Text('Everything You Need, Near You.',
                               style: TextStyle(
                                   fontSize: 21,
                                   fontWeight: FontWeight.w900,

@@ -35,8 +35,8 @@ image dependency or emoji product imagery is used.
 The Flutter app has a single source of truth for backend host configuration in
 `lib/core/app_config.dart` via `API_BASE_URL`.
 
-- Default (Railway private network): `http://nexamart.railway.internal/api/v1`
-- Local emulator development: `http://10.0.2.2:8080/api/v1`
+- Default (development emulator): `http://10.0.2.2:8080/api/v1`
+- Railway private network (only inside Railway runtime): `http://nexamart.railway.internal/api/v1`
 - Public production for real user devices: use your public HTTPS backend domain,
   for example `https://api.nexamart.com/api/v1` (Railway internal hostnames are
   not reachable from Play Store-installed apps on public networks).

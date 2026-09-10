@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="2dp" android:orientation="vertical" android:padding="16dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+            <ImageButton android:id="@+id/customerDetailsBackButton" android:layout_width="48dp" android:layout_height="48dp" android:src="@android:drawable/ic_media_previous" android:contentDescription="Back"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Customer Details" android:textSize="23sp" android:textStyle="bold"/>
+            <ImageButton android:id="@+id/customerDetailsRefreshButton" android:layout_width="48dp" android:layout_height="48dp" android:src="@android:drawable/ic_popup_sync" android:contentDescription="Refresh"/>
+        </LinearLayout>
+        <ProgressBar android:id="@+id/customerDetailsLoading" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="40dp"/>
+        <LinearLayout android:id="@+id/customerDetailsContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="18dp">
+                    <TextView android:id="@+id/customerDetailsName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="24sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/customerDetailsStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/customerDetailsContact" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"/>
+                    <TextView android:id="@+id/customerDetailsMeta" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"/>
+                    <TextView android:id="@+id/customerDetailsAddress" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <LinearLayout android:id="@+id/customerDetailsActions" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="14dp"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/customerDetailsStateSection" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:padding="24dp" android:visibility="gone">
+            <TextView android:id="@+id/customerDetailsStateTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="18sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/customerDetailsStateMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:gravity="center"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/customerDetailsRetryButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="Retry"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

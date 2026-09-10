@@ -1,0 +1,6 @@
+package com.daily.nexamartpartner.features.admin.category.presentation.ui
+import android.view.*
+import androidx.recyclerview.widget.RecyclerView
+import com.daily.nexamartpartner.databinding.ItemAdminCategoryBinding
+import com.daily.nexamartpartner.features.admin.category.domain.model.Category
+class CategoryAdapter(private val click:(Category)->Unit):RecyclerView.Adapter<CategoryAdapter.Holder>(){private val items=mutableListOf<Category>();fun submitList(v:List<Category>){items.clear();items.addAll(v);notifyDataSetChanged()};override fun onCreateViewHolder(p:ViewGroup,t:Int)=Holder(ItemAdminCategoryBinding.inflate(LayoutInflater.from(p.context),p,false));override fun getItemCount()=items.size;override fun onBindViewHolder(h:Holder,pos:Int)=h.bind(items[pos]);inner class Holder(private val b:ItemAdminCategoryBinding):RecyclerView.ViewHolder(b.root){fun bind(c:Category){b.categoryNameText.text=c.name;b.categoryMetaText.text=buildString{append(if(c.active==true)"Active" else if(c.active==false)"Inactive" else "Status unavailable");c.productCount?.let{append(" • ").append(it).append(" products")}};b.categoryDescriptionText.text=c.description.orEmpty();b.root.setOnClickListener{click(c)}}}}

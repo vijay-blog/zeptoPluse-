@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.NexamartPartner" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/nxm_primary</item>
+        <item name="colorOnPrimary">@color/nxm_on_primary</item>
+        <item name="colorSecondary">@color/nxm_secondary</item>
+        <item name="colorOnSecondary">@color/nxm_on_secondary</item>
+        <item name="colorSurface">@color/nxm_surface</item>
+        <item name="colorOnSurface">@color/nxm_on_surface</item>
+        <item name="colorSurfaceVariant">@color/nxm_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/nxm_on_surface_variant</item>
+        <item name="colorError">@color/nxm_error</item>
+        <item name="colorOnError">@color/nxm_on_error</item>
+        <item name="android:statusBarColor">@color/nxm_primary</item>
+        <item name="android:windowBackground">@color/nxm_background</item>
+    </style>
+</resources>

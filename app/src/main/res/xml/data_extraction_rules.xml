@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Authentication/session material must never be included in cloud backup. -->
+        <exclude domain="sharedpref" path="nexamart_secure_session.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <!-- Do not transfer encrypted authentication/session material to another device. -->
+        <exclude domain="sharedpref" path="nexamart_secure_session.xml" />
+    </device-transfer>
+</data-extraction-rules>

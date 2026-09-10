@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Authentication/session material must never be included in Auto Backup. -->
+    <exclude domain="sharedpref" path="nexamart_secure_session.xml" />
+</full-backup-content>

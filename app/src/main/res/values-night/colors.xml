@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nxm_primary">#FF9DB8FF</color>
+    <color name="nxm_on_primary">#FF06275F</color>
+    <color name="nxm_secondary">#FF5DD8C8</color>
+    <color name="nxm_on_secondary">#FF003731</color>
+    <color name="nxm_background">#FF0E1117</color>
+    <color name="nxm_surface">#FF171B22</color>
+    <color name="nxm_on_surface">#FFE4E8F0</color>
+    <color name="nxm_outline">#FF3A424F</color>
+    <color name="nxm_error">#FFFFB4AB</color>
+    <color name="nxm_on_error">#FF690005</color>
+    <color name="nxm_surface_variant">#FF222832</color>
+    <color name="nxm_on_surface_variant">#FFB9C1D0</color>
+    <color name="nxm_success">#FF72D6A7</color>
+    <color name="nxm_warning">#FFFFC86B</color>
+</resources>

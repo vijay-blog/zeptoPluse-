@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.daily.nexamartpartner.features.auth.presentation.ui.SplashFragment"
+        android:label="Splash" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.daily.nexamartpartner.features.auth.presentation.ui.LoginFragment"
+        android:label="Login" />
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.daily.nexamartpartner.features.auth.presentation.ui.RegisterFragment"
+        android:label="Create Account" />
+
+    <fragment
+        android:id="@+id/unsupportedRoleFragment"
+        android:name="com.daily.nexamartpartner.features.auth.presentation.ui.UnsupportedRoleFragment"
+        android:label="Access Denied" />
+
+    <navigation
+        android:id="@+id/adminGraph"
+        app:startDestination="@id/adminDashboardFragment">
+        <fragment
+            android:id="@+id/adminDashboardFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.AdminDashboardScreen"
+            android:label="Admin Dashboard" />
+
+        <fragment
+            android:id="@+id/adminOrdersFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.AdminOrdersScreen"
+            android:label="Admin Orders" />
+
+        <fragment
+            android:id="@+id/adminOrderDetailsFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.AdminOrderDetailsScreen"
+            android:label="Order Details">
+            <argument
+                android:name="orderId"
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminProductsFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.ProductListScreen"
+            android:label="Admin Products" />
+
+        <fragment
+            android:id="@+id/adminProductDetailsFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.ProductDetailsScreen"
+            android:label="Product Details">
+            <argument
+                android:name="productId"
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminProductFormFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.ProductFormScreen"
+            android:label="Product Form">
+            <argument
+                android:name="mode"
+                android:defaultValue="CREATE"
+                app:argType="string" />
+            <argument
+                android:name="productId"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminCategoriesFragment"
+            android:name="com.daily.nexamartpartner.features.admin.category.presentation.ui.CategoryListScreen"
+            android:label="Admin Categories" />
+
+        <fragment
+            android:id="@+id/adminCategoryDetailsFragment"
+            android:name="com.daily.nexamartpartner.features.admin.category.presentation.ui.CategoryDetailsScreen"
+            android:label="Category Details">
+            <argument android:name="categoryId" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/adminCategoryFormFragment"
+            android:name="com.daily.nexamartpartner.features.admin.category.presentation.ui.CategoryFormScreen"
+            android:label="Category Form">
+            <argument android:name="categoryId" android:defaultValue="@null" app:argType="string" app:nullable="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminCustomersFragment"
+            android:name="com.daily.nexamartpartner.features.admin.customer.presentation.ui.CustomerListScreen"
+            android:label="Admin Customers" />
+
+        <fragment
+            android:id="@+id/adminCustomerDetailsFragment"
+            android:name="com.daily.nexamartpartner.features.admin.customer.presentation.ui.CustomerDetailsScreen"
+            android:label="Customer Details">
+            <argument android:name="customerId" app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminDeliveryPartnersFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.DeliveryPartnerListScreen"
+            android:label="Delivery Partners" />
+
+        <fragment
+            android:id="@+id/adminDeliveryPartnerDetailsFragment"
+            android:name="com.daily.nexamartpartner.features.admin.presentation.ui.DeliveryPartnerDetailsScreen"
+            android:label="Delivery Partner Details">
+            <argument
+                android:name="partnerId"
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminReportsPlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.shared.presentation.ui.FeaturePlaceholderFragment"
+            android:label="Admin Reports">
+            <argument
+                android:name="featureTitle"
+                android:defaultValue="Reports"
+                app:argType="string" />
+            <argument
+                android:name="featureSubtitle"
+                android:defaultValue="Admin reports module placeholder."
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminNotificationsPlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.shared.presentation.ui.FeaturePlaceholderFragment"
+            android:label="Admin Notifications">
+            <argument
+                android:name="featureTitle"
+                android:defaultValue="Notifications"
+                app:argType="string" />
+            <argument
+                android:name="featureSubtitle"
+                android:defaultValue="Notifications center will be available in a future module."
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminProfilePlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.shared.presentation.ui.FeaturePlaceholderFragment"
+            android:label="Admin Profile">
+            <argument
+                android:name="featureTitle"
+                android:defaultValue="Profile"
+                app:argType="string" />
+            <argument
+                android:name="featureSubtitle"
+                android:defaultValue="Profile management will be available in the next module."
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/adminSettingsFragment"
+            android:name="com.daily.nexamartpartner.features.admin.settings.presentation.ui.AdminSettingsScreen"
+            android:label="Admin Settings">
+            <argument
+                android:name="featureTitle"
+                android:defaultValue="Settings"
+                app:argType="string" />
+            <argument
+                android:name="featureSubtitle"
+                android:defaultValue="Admin settings module placeholder."
+                app:argType="string" />
+        </fragment>
+    </navigation>
+
+    <navigation
+        android:id="@+id/deliveryGraph"
+        app:startDestination="@id/deliveryDashboardFragment">
+        <fragment
+            android:id="@+id/deliveryDashboardFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.presentation.ui.DeliveryDashboardScreen"
+            android:label="Delivery Dashboard" />
+
+        <fragment
+            android:id="@+id/deliveryAssignedOrdersFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.presentation.ui.DeliveryAssignedOrdersScreen"
+            android:label="Assigned Orders" />
+
+        <fragment
+            android:id="@+id/deliveryOrderDetailsFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.presentation.ui.DeliveryOrderDetailsScreen"
+            android:label="Delivery Order Details">
+            <argument android:name="orderId" app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/deliveryPickupPlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.shared.presentation.ui.FeaturePlaceholderFragment"
+            android:label="Pickup">
+            <argument
+                android:name="featureTitle"
+                android:defaultValue="Pickup"
+                app:argType="string" />
+            <argument
+                android:name="featureSubtitle"
+                android:defaultValue="Delivery pickup module placeholder."
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/deliveryRunPlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.shared.presentation.ui.FeaturePlaceholderFragment"
+            android:label="Delivery">
+            <argument
+                android:name="featureTitle"
+                android:defaultValue="Delivery"
+                app:argType="string" />
+            <argument
+                android:name="featureSubtitle"
+                android:defaultValue="Delivery run module placeholder."
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/deliveryHistoryFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.presentation.ui.DeliveryHistoryScreen"
+            android:label="Delivery History" />
+
+        <fragment
+            android:id="@+id/deliveryEarningsPlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.earnings.presentation.ui.DeliveryEarningsScreen"
+            android:label="Earnings" />
+
+        <fragment
+            android:id="@+id/deliveryProfilePlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.profile.presentation.ui.DeliveryPartnerProfileScreen"
+            android:label="Delivery Profile" />
+
+        <fragment
+            android:id="@+id/deliveryAvailabilityPlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.availability.presentation.ui.DeliveryAvailabilityScreen"
+            android:label="Availability" />
+
+        <fragment
+            android:id="@+id/deliveryNotificationsPlaceholderFragment"
+            android:name="com.daily.nexamartpartner.features.delivery.notifications.presentation.ui.DeliveryNotificationsScreen"
+            android:label="Delivery Notifications" />
+    </navigation>
+</navigation>

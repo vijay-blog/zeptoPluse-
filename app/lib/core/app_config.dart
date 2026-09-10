@@ -1,6 +1,6 @@
 class AppConfig {
   static const String _apiPrefix = '/api/v1';
-  static const String _defaultApiBaseUrl = 'http://10.0.2.2:8080$_apiPrefix';
+  static const String _defaultApiBaseUrl = 'https://zeptopluse-production.up.railway.app$_apiPrefix';
   static const bool _isReleaseBuild = bool.fromEnvironment('dart.vm.product');
   static final String apiBaseUrl = _normalizeBaseUrl(
     String.fromEnvironment('API_BASE_URL', defaultValue: _defaultApiBaseUrl),
@@ -34,6 +34,6 @@ class AppConfig {
   static String _normalizeBaseUrl(String value) =>
       value.trim().replaceAll(RegExp(r'/+$'), '');
 
-  static const bool useMockFallback = true;
+  static const bool useMockFallback = false;
   static const Duration timeout = Duration(seconds: 15);
 }

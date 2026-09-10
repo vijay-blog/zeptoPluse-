@@ -14,4 +14,6 @@ public interface OrderRepository extends JpaRepository<CustomerOrder, Long> {
 
     @EntityGraph(attributePaths = "items")
     Optional<CustomerOrder> findByIdempotencyKey(String idempotencyKey);
+
+    List<CustomerOrder> findAllByOrderByCreatedAtDesc();
 }

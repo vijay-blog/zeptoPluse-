@@ -85,6 +85,8 @@ class _HomeTab extends StatelessWidget {
     ];
     return SafeArea(
         child: CustomScrollView(slivers: [
+      if (cat.error != null && cat.products.isEmpty)
+        SliverPadding(padding: const EdgeInsets.fromLTRB(18, 10, 18, 0), sliver: SliverToBoxAdapter(child: Card(child: ListTile(leading: const Icon(Icons.cloud_off), title: const Text('Unable to load NexaMart catalogue'), subtitle: const Text('Check your internet connection and try again.'), trailing: IconButton(onPressed: cat.load, icon: const Icon(Icons.refresh))))))),
       SliverPadding(
           padding: const EdgeInsets.fromLTRB(18, 18, 18, 8),
           sliver: SliverToBoxAdapter(
@@ -150,7 +152,7 @@ class _HomeTab extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(18, 2, 18, 0),
           sliver: SliverToBoxAdapter(
               child: HomeCategorySlider(
-                  categories: categories.take(24).toList(),
+                  categories: cat.categories.take(24).map((x) => {'name': x.name, 'image': x.icon}).toList(),
                   onTapCategory: (category) => Navigator.push(
                       c,
                       MaterialPageRoute(

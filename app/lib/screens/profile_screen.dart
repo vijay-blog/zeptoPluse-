@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Icon(Icons.person, color: Color(0xff3454d1))),
                 title: Text('Guest Customer',
                     style: TextStyle(fontWeight: FontWeight.w900)),
-                subtitle: Text('Login with OTP will be added later'))),
+                subtitle: Text('Guest checkout • Orders and addresses are synced with NexaMart'))),
         const SizedBox(height: 12),
         Card(
             child: Column(children: [

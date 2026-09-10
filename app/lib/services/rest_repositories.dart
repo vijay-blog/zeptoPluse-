@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import '../core/api_client.dart';
 import '../models/address.dart';
 import '../models/cart_item.dart';
@@ -92,6 +93,7 @@ class RestProductRepository implements ProductRepository {
 
 class RestOrderRepository implements OrderRepository {
   final ApiClient apiClient;
+  Future<int> _customerId() async { final prefs=await SharedPreferences.getInstance(); return prefs.getInt('nm.customerId') ?? 0; }
 
   RestOrderRepository({required this.apiClient});
 
@@ -105,7 +107,7 @@ class RestOrderRepository implements OrderRepository {
     required double total,
   }) async {
     final body = {
-      'addressId': address.id,
+      if (address.id != null && int.tryParse(address.id!) != null) 'addressId': int.parse(address.id!),
       'address': address.toJson(),
       'paymentMethod': 'COD',
       'items': items
@@ -127,7 +129,8 @@ class RestOrderRepository implements OrderRepository {
 
   @override
   Future<List<CustomerOrder>> getOrders() async {
-    final data = await apiClient.request(HttpMethod.get, '/orders');
+    final customerId = await _customerId();
+    final data = await apiClient.request(HttpMethod.get, '/orders', queryParameters: {'customerId': customerId});
     if (data is List) {
       return data
           .map((e) => _parseOrder(e as Map<String, dynamic>, const [], ''))
@@ -170,7 +173,8 @@ class RestAddressRepository implements AddressRepository {
 
   @override
   Future<List<Address>> getAddresses() async {
-    final data = await apiClient.request(HttpMethod.get, '/addresses');
+    final prefs=await SharedPreferences.getInstance(); final customerId=prefs.getInt('nm.customerId') ?? 0;
+    final data = await apiClient.request(HttpMethod.get, '/customers/$customerId/addresses');
     if (data is List) {
       return data
           .map((e) => Address.fromJson(e as Map<String, dynamic>))
@@ -185,9 +189,10 @@ class RestAddressRepository implements AddressRepository {
     if (address.id == null ||
         address.id!.isEmpty ||
         address.id!.startsWith('addr_new')) {
+      final prefs=await SharedPreferences.getInstance(); final customerId=prefs.getInt('nm.customerId') ?? 0;
       data = await apiClient.request(
         HttpMethod.post,
-        '/addresses',
+        '/customers/$customerId/addresses',
         body: address.toJson(),
       );
     } else {

@@ -19,16 +19,11 @@ class OrderProvider extends ChangeNotifier {
   }
 
   Future<void> _load() async {
-    final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getStringList('zp.orders') ?? const [];
-    orders
-      ..clear()
-      ..addAll(raw.map((x) {
-        final j = jsonDecode(x) as Map<String, dynamic>;
-        return CustomerOrder.fromJson(j);
-      }));
-    initialized = true;
-    notifyListeners();
+    final prefs=await SharedPreferences.getInstance();
+    final raw=prefs.getStringList('zp.orders')??const [];
+    orders..clear()..addAll(raw.map((x)=>CustomerOrder.fromJson(jsonDecode(x) as Map<String,dynamic>)));
+    try { final customerId=await _session.ensureCustomerId(); final data=await _api.get('/orders',{'customerId':'$customerId'}); if(data is List){orders..clear()..addAll(data.whereType<Map<String,dynamic>>().map(CustomerOrder.fromJson)); await _persist();} } catch(_) {}
+    initialized=true; notifyListeners();
   }
 
   Future<void> _persist() async {

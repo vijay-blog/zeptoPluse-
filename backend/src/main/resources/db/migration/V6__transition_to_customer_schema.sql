@@ -1,11 +1,64 @@
-RENAME TABLE
-  categories TO legacy_marketplace_categories,
-  products TO legacy_marketplace_products,
-  addresses TO legacy_marketplace_addresses,
-  orders TO legacy_marketplace_orders,
-  order_items TO legacy_marketplace_order_items;
+SET @rename_sql = (
+  SELECT IF(
+    EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'categories')
+      AND NOT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'legacy_marketplace_categories'),
+    'RENAME TABLE categories TO legacy_marketplace_categories',
+    'SELECT 1'
+  )
+);
+PREPARE rename_statement FROM @rename_sql;
+EXECUTE rename_statement;
+DEALLOCATE PREPARE rename_statement;
 
-CREATE TABLE users (
+SET @rename_sql = (
+  SELECT IF(
+    EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'products')
+      AND NOT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'legacy_marketplace_products'),
+    'RENAME TABLE products TO legacy_marketplace_products',
+    'SELECT 1'
+  )
+);
+PREPARE rename_statement FROM @rename_sql;
+EXECUTE rename_statement;
+DEALLOCATE PREPARE rename_statement;
+
+SET @rename_sql = (
+  SELECT IF(
+    EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'addresses')
+      AND NOT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'legacy_marketplace_addresses'),
+    'RENAME TABLE addresses TO legacy_marketplace_addresses',
+    'SELECT 1'
+  )
+);
+PREPARE rename_statement FROM @rename_sql;
+EXECUTE rename_statement;
+DEALLOCATE PREPARE rename_statement;
+
+SET @rename_sql = (
+  SELECT IF(
+    EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'orders')
+      AND NOT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'legacy_marketplace_orders'),
+    'RENAME TABLE orders TO legacy_marketplace_orders',
+    'SELECT 1'
+  )
+);
+PREPARE rename_statement FROM @rename_sql;
+EXECUTE rename_statement;
+DEALLOCATE PREPARE rename_statement;
+
+SET @rename_sql = (
+  SELECT IF(
+    EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'order_items')
+      AND NOT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'legacy_marketplace_order_items'),
+    'RENAME TABLE order_items TO legacy_marketplace_order_items',
+    'SELECT 1'
+  )
+);
+PREPARE rename_statement FROM @rename_sql;
+EXECUTE rename_statement;
+DEALLOCATE PREPARE rename_statement;
+
+CREATE TABLE IF NOT EXISTS users (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(150) NOT NULL,
   username VARCHAR(100) UNIQUE,
@@ -18,7 +71,7 @@ CREATE TABLE users (
   last_active_at TIMESTAMP(6)
 );
 
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(150) NOT NULL UNIQUE,
   description VARCHAR(1000),
@@ -29,7 +82,7 @@ CREATE TABLE categories (
   updated_at TIMESTAMP(6) NOT NULL
 );
 
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   description VARCHAR(2000),
@@ -46,7 +99,7 @@ CREATE TABLE products (
   CONSTRAINT fk_product_category FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
-CREATE TABLE addresses (
+CREATE TABLE IF NOT EXISTS addresses (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   customer_id BIGINT NOT NULL,
   label VARCHAR(100),
@@ -62,7 +115,7 @@ CREATE TABLE addresses (
   CONSTRAINT fk_address_customer FOREIGN KEY (customer_id) REFERENCES users(id)
 );
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   customer_id BIGINT NOT NULL,
   delivery_partner_id BIGINT,
@@ -87,7 +140,7 @@ CREATE TABLE orders (
   CONSTRAINT fk_order_address FOREIGN KEY (delivery_address_id) REFERENCES addresses(id)
 );
 
-CREATE TABLE order_items (
+CREATE TABLE IF NOT EXISTS order_items (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   order_id BIGINT NOT NULL,
   product_id BIGINT NOT NULL,
@@ -99,7 +152,7 @@ CREATE TABLE order_items (
   CONSTRAINT fk_item_product FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-CREATE TABLE delivery_partner_profiles (
+CREATE TABLE IF NOT EXISTS delivery_partner_profiles (
   user_id BIGINT PRIMARY KEY,
   verification_status VARCHAR(30) NOT NULL,
   vehicle_type VARCHAR(100),
@@ -110,7 +163,7 @@ CREATE TABLE delivery_partner_profiles (
   CONSTRAINT fk_profile_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE notifications (
+CREATE TABLE IF NOT EXISTS notifications (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id BIGINT NOT NULL,
   title VARCHAR(255),
@@ -123,7 +176,7 @@ CREATE TABLE notifications (
   CONSTRAINT fk_notification_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE earnings (
+CREATE TABLE IF NOT EXISTS earnings (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   partner_id BIGINT NOT NULL,
   order_id BIGINT NOT NULL,
@@ -135,9 +188,3 @@ CREATE TABLE earnings (
   CONSTRAINT fk_earning_partner FOREIGN KEY (partner_id) REFERENCES users(id),
   CONSTRAINT fk_earning_order FOREIGN KEY (order_id) REFERENCES orders(id)
 );
-
-CREATE INDEX idx_orders_customer ON orders(customer_id);
-CREATE INDEX idx_orders_partner ON orders(delivery_partner_id);
-CREATE INDEX idx_orders_status ON orders(status);
-CREATE INDEX idx_notifications_user ON notifications(user_id, read_flag);
-CREATE INDEX idx_earnings_partner_date ON earnings(partner_id, earned_at);

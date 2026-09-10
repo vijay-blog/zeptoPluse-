@@ -28,8 +28,8 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(UnauthorizedException.class)
-    ResponseEntity<ApiError> unauthorized(UnauthorizedException e) {
+    @ExceptionHandler(com.zeptopluse.auth.UnauthorizedException.class)
+    ResponseEntity<ApiError> unauthorized(com.zeptopluse.auth.UnauthorizedException e) {
         return response(HttpStatus.UNAUTHORIZED, e.getMessage(), Map.of());
     }
 

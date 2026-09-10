@@ -17,7 +17,14 @@ class AuthRemoteDataSourceImpl(
     private val apiCallExecutor: ApiCallExecutor
 ) : AuthRemoteDataSource {
     override suspend fun login(credentials: LoginCredentials): AppResult<LoginResponseDto> {
-        val response = apiCallExecutor.execute { api.login(requestContract.buildLoginBody(credentials)) }
+        val loginBody = requestContract.buildLoginBody(credentials)
+            ?: return AppResult.Failure(
+                AppFailure(
+                    message = "Auth login request contract is not configured.",
+                    type = FailureType.CONTRACT_MISSING
+                )
+            )
+        val response = apiCallExecutor.execute { api.login(loginBody) }
         return mapAuthFailure(response)
     }
 
@@ -26,8 +33,16 @@ class AuthRemoteDataSourceImpl(
         return mapAuthFailure(response)
     }
 
-    override suspend fun refresh(refreshToken: String): AppResult<LoginResponseDto> =
-        apiCallExecutor.execute { api.refresh(requestContract.buildRefreshBody(refreshToken)) }
+    override suspend fun refresh(refreshToken: String): AppResult<LoginResponseDto> {
+        val refreshBody = requestContract.buildRefreshBody(refreshToken)
+            ?: return AppResult.Failure(
+                AppFailure(
+                    message = "Auth refresh request contract is not configured.",
+                    type = FailureType.CONTRACT_MISSING
+                )
+            )
+        return apiCallExecutor.execute { api.refresh(refreshBody) }
+    }
 
     override suspend fun logout(refreshToken: String?): AppResult<Unit> =
         apiCallExecutor.execute { api.logout(mapOf("refreshToken" to (refreshToken ?: ""))) }.let {

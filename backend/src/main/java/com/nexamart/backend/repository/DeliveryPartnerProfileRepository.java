@@ -1,0 +1,1 @@
+package com.nexamart.backend.repository;import com.nexamart.backend.domain.DeliveryPartnerProfile;import org.springframework.data.jpa.repository.JpaRepository;public interface DeliveryPartnerProfileRepository extends JpaRepository<DeliveryPartnerProfile,Long>{}

@@ -1,0 +1,1 @@
+package com.nexamart.backend.api;import org.springframework.web.bind.annotation.*;import java.util.Map;@RestController @RequestMapping("/api/v1")public class HealthController{@GetMapping("/health")Map<String,Object> health(){return Map.of("status","UP","service","nexamart-backend");}}

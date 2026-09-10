@@ -1,0 +1,1 @@
+package com.nexamart.backend.repository;import com.nexamart.backend.domain.Address;import org.springframework.data.jpa.repository.*;import java.util.*;public interface AddressRepository extends JpaRepository<Address,Long>{Optional<Address> findFirstByCustomerIdAndDefaultAddressTrue(Long customerId);List<Address> findByCustomerId(Long customerId);}

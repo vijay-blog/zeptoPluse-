@@ -1,0 +1,1 @@
+package com.nexamart.backend.repository;import com.nexamart.backend.domain.OrderItem;import org.springframework.data.jpa.repository.*;import java.util.*;public interface OrderItemRepository extends JpaRepository<OrderItem,Long>{List<OrderItem> findByOrderId(Long orderId);}

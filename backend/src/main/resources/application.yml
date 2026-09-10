@@ -15,6 +15,9 @@ spring:
     open-in-view: false
   flyway:
     enabled: true
+    ignore-migration-patterns:
+      - "*:missing"
+      - "*:future"
   jackson:
     serialization:
       write-dates-as-timestamps: false

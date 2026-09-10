@@ -22,3 +22,12 @@ jackson:
 razorpay:
   key-id: ${RAZORPAY_KEY_ID:}
   key-secret: ${RAZORPAY_KEY_SECRET:}
+
+security:
+  jwt:
+    secret: ${NEXAMART_JWT_SECRET:}
+    access-expiration-seconds: ${NEXAMART_ACCESS_EXPIRATION_SECONDS:3600}
+  bootstrap-admin:
+    email: ${NEXAMART_ADMIN_EMAIL:}
+    password: ${NEXAMART_ADMIN_PASSWORD:}
+    name: ${NEXAMART_ADMIN_NAME:NexaMart Admin}

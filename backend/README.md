@@ -1,6 +1,6 @@
 # NexaMart Backend
 
-Java 17 / Spring Boot 3 modular-monolith API for the Flutter NexaMart marketplace app.
+Java 17 / Spring Boot 3 modular-monolith API for the NexaMart marketplace applications.
 
 ## Run
 
@@ -38,3 +38,10 @@ Customer creation accepts either `phone` or Flutter's `mobile`; absent guest nam
 Checkout is transactional: product rows are pessimistically locked, duplicate lines are rejected, address ownership/current availability/inventory are checked, prices are always read from `sellingPrice`, inventory is reduced, and order snapshots are persisted atomically. Client totals and prices are never accepted.
 
 COD orders are confirmed server-side without Razorpay credentials. Online orders are created as `PAYMENT_PENDING`; the backend creates Razorpay orders with `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET`, verifies the Razorpay HMAC signature, and only then marks the order payment as `CAPTURED`.
+
+
+## Authentication
+
+Authentication uses Spring Security, BCrypt password hashing, short-lived HMAC-SHA256 JWT access tokens, and 30-day rotating opaque refresh tokens stored hashed in MySQL. Set `NEXAMART_JWT_SECRET` to a random secret of at least 32 characters in Railway. Public registration creates `DELIVERY_PARTNER` accounts only; ADMIN accounts must be provisioned with `NEXAMART_ADMIN_EMAIL`, `NEXAMART_ADMIN_PASSWORD`, and optionally `NEXAMART_ADMIN_NAME`. Never commit these secrets.
+
+For Android devices, do not use the Railway private hostname `nexamart.railway.internal`. Configure the Android `nexamartApiUrl` Gradle property to the public HTTPS Railway domain plus `/api/v1/`.

@@ -134,15 +134,7 @@ public class OrderService {
             Product product = locked.get(requestedItem.productId());
             BigDecimal lineTotal = product.getSellingPrice().multiply(BigDecimal.valueOf(requestedItem.quantity()));
             OrderItem item = new OrderItem();
-            item.setProductId(product.getId());
-            item.setProductSku(product.getSku());
-            item.setProductName(product.getName());
-            item.setProductBrand(product.getBrand());
-            item.setProductImageUrl(product.getImageUrl());
-            item.setProductUnit(product.getUnit());
-            item.setQuantity(requestedItem.quantity());
-            item.setUnitPrice(product.getSellingPrice());
-            item.setLineTotal(lineTotal);
+            item.setProductId(product.getId()); item.setProductSku(product.getSku()); item.setProductName(product.getName()); item.setProductBrand(product.getBrand()); item.setProductImageUrl(product.getImageUrl()); item.setProductUnit(product.getUnit()); item.setQuantity(requestedItem.quantity()); item.setUnitPrice(product.getSellingPrice()); item.setLineTotal(lineTotal);
             order.addItem(item);
             product.setStockQuantity(product.getStockQuantity() - requestedItem.quantity());
             subtotal = subtotal.add(lineTotal);
@@ -155,22 +147,7 @@ public class OrderService {
     }
 
     private String addressSnapshot(CustomerAddress address) {
-        return String.join(
-                ", ",
-                List.of(
-                                address.getRecipientName(),
-                                address.getLine1(),
-                                blank(address.getLine2()),
-                                blank(address.getLandmark()),
-                                address.getCity(),
-                                address.getState() + " " + address.getPostalCode(),
-                                address.getPhone())
-                        .stream()
-                        .filter(value -> !value.isBlank())
-                        .toList());
+        return String.join(", ", List.of(address.getRecipientName(), address.getLine1(), blank(address.getLine2()), blank(address.getLandmark()), address.getCity(), address.getState() + " " + address.getPostalCode(), address.getPhone()).stream().filter(value -> !value.isBlank()).toList());
     }
-
-    private String blank(String value) {
-        return value == null ? "" : value;
-    }
+    private String blank(String value) { return value == null ? "" : value; }
 }

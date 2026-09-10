@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import com.zeptopluse.auth.UnauthorizedException;
 
 import java.time.Instant;
 import java.util.*;
@@ -25,6 +26,12 @@ public class GlobalExceptionHandler {
         Map<String, String> errors = new LinkedHashMap<>();
         e.getBindingResult().getFieldErrors().forEach(x -> errors.put(x.getField(), x.getDefaultMessage()));
         return response(HttpStatus.BAD_REQUEST, "Validation failed", errors);
+    }
+
+
+    @ExceptionHandler(UnauthorizedException.class)
+    ResponseEntity<ApiError> unauthorized(UnauthorizedException e) {
+        return response(HttpStatus.UNAUTHORIZED, e.getMessage(), Map.of());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

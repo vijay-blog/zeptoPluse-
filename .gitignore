@@ -13,13 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-.env
-**/.env
-**/target/
-**/node_modules/
-**/.dart_tool/
-**/.flutter-plugins
-**/.flutter-plugins-dependencies
-**/build/
-app/android/.gradle/
-frontend/dist/
